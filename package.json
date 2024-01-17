@@ -1,0 +1,55 @@
+{
+  "name": "playwright-s3-reporter",
+  "version": "0.0.1",
+  "description": "A Playwright Reporter for uploading traces to S3 compatible services.",
+  "main": "dist/reporter.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "formatting:fix": "prettier --write .",
+    "formatting:check": "prettier --check .",
+    "lint:fix": "eslint --fix .",
+    "lint:check": "eslint .",
+    "prepare": "husky install",
+    "preversion": "npm run lint:check && npm run formatting:check && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonasclaes/playwright-s3-reporter.git"
+  },
+  "keywords": [
+    "playwright",
+    "s3",
+    "reporter"
+  ],
+  "author": "Jonas Claes <jonas@jonasclaes.be>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jonasclaes/playwright-s3-reporter/issues"
+  },
+  "homepage": "https://github.com/jonasclaes/playwright-s3-reporter#readme",
+  "peerDependencies": {
+    "@playwright/test": "^1.36.2",
+    "playwright-core": "^1.36.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.4",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.1.6"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.490.0"
+  }
+}
