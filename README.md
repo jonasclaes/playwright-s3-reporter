@@ -35,8 +35,8 @@ reporter: [
       'playwright-s3-reporter',
       {
         credentials: {
-          accessKeyId: "Ml4H2XSxSZzQBW9L3YGW", // Required: Your AWS access key ID.
-          secretAccessKey: "QaCBKyRIjXg6b5PbQeZUu9qHhudZlfri3KKJAnl6", // Required: Your AWS secret access key.
+          accessKeyId: "abcd", // Required: Your AWS access key ID.
+          secretAccessKey: "xyz", // Required: Your AWS secret access key.
         },
         endpoint: "http://playwright-s3.services.mycompany.example:9000", // Optional: The endpoint URL of the S3 service. Required for services other than AWS S3. Defaults to s3.<region>.amazonaws.com.
         sslEnabled: false, // Optional: Flag to enable or disable SSL for the connection. Defaults to true.
