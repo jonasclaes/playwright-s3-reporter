@@ -36,6 +36,7 @@
     "playwright-core": "^1.36.2"
   },
   "devDependencies": {
+    "@smithy/types": "^3.0.0",
     "@types/node": "^20.11.19",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
@@ -50,6 +51,7 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.490.0"
+    "@aws-sdk/client-s3": "^3.490.0",
+    "mime": "^4.0.3"
   }
 }
