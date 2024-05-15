@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@smithy/types": "^3.0.0",
+    "@types/mime": "^3.0.4",
     "@types/node": "^20.11.19",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
@@ -52,6 +53,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.490.0",
-    "mime": "^4.0.3"
+    "mime": "^3.0.0"
   }
 }

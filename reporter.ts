@@ -14,6 +14,7 @@ import type { Reporter } from "@playwright/test/reporter";
 import { createReadStream } from "fs";
 import { readdir } from "fs/promises";
 import path from "path";
+import mime from "mime";
 
 export interface S3ReporterOptions {
   /**
@@ -136,8 +137,6 @@ class S3Reporter implements Reporter {
     console.log(`[${S3Reporter.name}] Uploading ${files.length} files...`);
 
     let totalUploadErrors = 0;
-
-    const mime = (await import("mime")).default;
 
     const uploads = files.map(async (filePath) => {
       const metaData: Record<string, string> = {
