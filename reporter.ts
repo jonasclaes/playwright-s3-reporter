@@ -3,10 +3,18 @@ import {
   PutObjectCommandInput,
   S3Client,
 } from "@aws-sdk/client-s3";
+import type {
+  AwsCredentialIdentity,
+  Provider,
+  Endpoint,
+  EndpointV2,
+  UserAgent,
+} from "@smithy/types";
 import type { Reporter } from "@playwright/test/reporter";
 import { createReadStream } from "fs";
 import { readdir } from "fs/promises";
 import path from "path";
+import mime from "mime";
 
 export interface S3ReporterOptions {
   /**
@@ -14,17 +22,19 @@ export interface S3ReporterOptions {
    * @property {string} accessKeyId - AWS access key ID.
    * @property {string} secretAccessKey - AWS secret access key.
    */
-  credentials: {
-    accessKeyId: string;
-    secretAccessKey: string;
-  };
+  credentials: AwsCredentialIdentity | Provider<AwsCredentialIdentity>;
 
   /**
    * The endpoint URL of the S3 service.
    * Optional. If not specified, the default AWS endpoint is used.
    * @default s3.<region>.amazonaws.com
    */
-  endpoint?: string;
+  endpoint?:
+    | string
+    | Endpoint
+    | Provider<Endpoint>
+    | EndpointV2
+    | Provider<EndpointV2>;
 
   /**
    * Flag to enable or disable SSL for the connection.
@@ -37,19 +47,19 @@ export interface S3ReporterOptions {
    * AWS region where the S3 bucket is located.
    * Optional. If not specified, the default region is used.
    */
-  region?: string;
+  region?: string | Provider<string>;
 
   /**
    * A custom user agent string to be used in requests to AWS services.
    * Optional.
    */
-  customUserAgent?: string;
+  customUserAgent?: string | UserAgent;
 
   /**
    * The maximum number of attempts to make for a request.
    * Optional. If not specified, the default retry strategy is used.
    */
-  maxAttempts?: number;
+  maxAttempts?: number | Provider<number>;
 
   /**
    * The name of the S3 bucket where reports will be uploaded.
@@ -129,9 +139,7 @@ class S3Reporter implements Reporter {
     let totalUploadErrors = 0;
 
     const uploads = files.map(async (filePath) => {
-      const metaData: Record<string, string> = {
-        "Content-Type": "application/zip",
-      };
+      const metaData: Record<string, string> = {};
 
       let sourceDirectory = "";
 
@@ -158,6 +166,7 @@ class S3Reporter implements Reporter {
           Key: key,
           Body: createReadStream(filePath),
           Metadata: metaData,
+          ContentType: mime.getType(filePath),
         };
 
         const putObjectCommand = new PutObjectCommand(putObjectParams);
