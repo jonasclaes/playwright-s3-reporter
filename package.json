@@ -1,6 +1,6 @@
 {
   "name": "playwright-s3-reporter",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A Playwright Reporter for uploading traces to S3 compatible services.",
   "main": "dist/reporter.js",
   "files": [
