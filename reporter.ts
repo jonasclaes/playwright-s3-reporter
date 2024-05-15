@@ -139,9 +139,7 @@ class S3Reporter implements Reporter {
     let totalUploadErrors = 0;
 
     const uploads = files.map(async (filePath) => {
-      const metaData: Record<string, string> = {
-        "Content-Type": mime.getType(filePath),
-      };
+      const metaData: Record<string, string> = {};
 
       let sourceDirectory = "";
 
@@ -168,6 +166,7 @@ class S3Reporter implements Reporter {
           Key: key,
           Body: createReadStream(filePath),
           Metadata: metaData,
+          ContentType: mime.getType(filePath),
         };
 
         const putObjectCommand = new PutObjectCommand(putObjectParams);
