@@ -38,7 +38,7 @@
   "devDependencies": {
     "@smithy/types": "^3.0.0",
     "@types/mime": "^3.0.4",
-    "@types/node": "^20.11.19",
+    "@types/node": "^22.15.18",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "eslint": "^8.46.0",
