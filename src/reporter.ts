@@ -284,6 +284,7 @@ class S3Reporter implements Reporter {
 
     let totalUploadErrors = 0;
 
+    // eslint-disable-next-line no-useless-assignment
     let listings: DirectoryListing[] = [];
 
     try {
@@ -438,7 +439,7 @@ class S3Reporter implements Reporter {
 
     const cutoffDate = daysToKeep !== undefined ? new Date() : undefined;
     if (cutoffDate) {
-      cutoffDate.setDate(cutoffDate.getDate() - daysToKeep);
+      cutoffDate.setDate(cutoffDate.getDate() - (daysToKeep ?? 30));
     }
 
     const paginator = paginateListObjectsV2(
