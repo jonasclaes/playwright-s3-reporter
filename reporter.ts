@@ -30,11 +30,7 @@ export interface S3ReporterOptions {
    * @default s3.<region>.amazonaws.com
    */
   endpoint?:
-    | string
-    | Endpoint
-    | Provider<Endpoint>
-    | EndpointV2
-    | Provider<EndpointV2>;
+    string | Endpoint | Provider<Endpoint> | EndpointV2 | Provider<EndpointV2>;
 
   /**
    * Flag to enable or disable SSL for the connection.
@@ -166,7 +162,7 @@ class S3Reporter implements Reporter {
           Key: key,
           Body: createReadStream(filePath),
           Metadata: metaData,
-          ContentType: mime.getType(filePath),
+          ContentType: mime.getType(filePath) ?? undefined,
         };
 
         const putObjectCommand = new PutObjectCommand(putObjectParams);
