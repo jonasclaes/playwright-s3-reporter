@@ -1,0 +1,24 @@
+name: Renovate
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * 1"
+
+concurrency:
+  group: renovate
+  cancel-in-progress: true
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v46.2.4
+        with:
+          configurationFile: ./renovate.js
+        env:
+          LOG_LEVEL: "debug"
+          RENOVATE_PLATFORM_COMMIT: "true"
