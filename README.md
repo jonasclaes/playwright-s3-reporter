@@ -45,11 +45,20 @@ reporter: [
         baseUploadKey: "tests/abcd/", // Optional: The base key (prefix) under which the reports will be uploaded in the bucket. Defaults to the root of the bucket.
         uploadTestResults: true, // Optional: Flag to enable or disable the upload of test results. Defaults to false.
         uploadReport: true, // Optional: Flag to enable or disable the upload of the Playwright report. Defaults to false.
+        updateBucketDirectory: { // Optional: Generate `index.html` directory listing files for each uploaded directory. Disabled by default.
+          enabled: true, // Required: Flag to enable or disable directory listing generation. Defaults to false.
+          mode: "listExisting", // Optional: "newOnly" only lists files uploaded during this run. "listExisting" also queries the bucket for previously uploaded reports. Defaults to "newOnly".
+          daysToKeep: 30, // Optional: When mode is "listExisting", only include existing objects modified within this many days. Defaults to including all existing objects.
+        },
       }
     ]
 ]
 ...
 ```
+
+### Directory listings
+
+When `updateBucketDirectory.enabled` is set to `true`, the reporter generates an `index.html` file for every directory that files get uploaded to (and, when `mode` is `listExisting`, for every directory already present in the bucket under `baseUploadKey`). Each `index.html` links to its subdirectories and files, making it easy to browse your uploaded reports directly from a browser, for example when S3 static website hosting is enabled on the bucket.
 
 ## Usage
 
